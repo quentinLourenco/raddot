@@ -1,4 +1,3 @@
-from django.contrib import admin
 from django.urls import path, include
 from django.shortcuts import redirect
 from user_manager.views.profile.profile import profile
@@ -16,5 +15,4 @@ urlpatterns = [
     path('auth/', include(('user_manager.urls', 'user_manager'), namespace='user_manager')),
     path('profile/', profile, name='profile'),
     path('profile/edit/', update_profile, name='update_profile'),
-    path('admin/', admin.site.urls),
 ]

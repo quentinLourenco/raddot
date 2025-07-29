@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Créer un subraddot{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'forms.css' %}">
+<style>
+    .create-subraddot-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 80vh;
+        background: linear-gradient(135deg, #f5f7fc, #e8f0ff);
+        padding: 20px;
+    }
+
+    .create-subraddot-header {
+        margin-bottom: 30px;
+        text-align: center;
+    }
+
+    .create-subraddot-header h1 {
+        font-size: 32px;
+        font-weight: 700;
+        color: #ff4500;
+        margin-bottom: 10px;
+    }
+
+    .create-subraddot-header p {
+        color: #878a8c;
+        font-size: 16px;
+    }
+
+    .create-subraddot-form {
+        width: 100%;
+        max-width: 550px;
+    }
+
+    .image-preview {
+        margin-top: 10px;
+        text-align: center;
+    }
+
+    .image-preview img {
+        max-width: 100%;
+        max-height: 200px;
+        border-radius: 4px;
+        display: none;
+    }
+
+    @media (min-width: 1200px) {
+        .create-subraddot-form {
+            max-width: 800px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="create-subraddot-container">
+    <div class="create-subraddot-header">
+        <h1>Créer une nouvelle subraddot</h1>
+        <p>Créez un espace pour partager et discuter avec d'autres passionnés</p>
+    </div>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="{% if message.tags == 'error' %}error-message{% else %}success-message{% endif %}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="post" enctype="multipart/form-data" class="create-subraddot-form">
+        <h2>Détails du subraddot</h2>
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+
+        <div class="form-group">
+            {{ form.name.label_tag }}
+            {{ form.name }}
+            {% if form.name.help_text %}
+                <small>{{ form.name.help_text }}</small>
+            {% endif %}
+            {% if form.name.errors %}
+                <div class="error-message">{{ form.name.errors.0 }}</div>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            {{ form.description.label_tag }}
+            {{ form.description }}
+            {% if form.description.help_text %}
+                <small>{{ form.description.help_text }}</small>
+            {% endif %}
+            {% if form.description.errors %}
+                <div class="error-message">{{ form.description.errors.0 }}</div>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            {{ form.banner.label_tag }}
+            {{ form.banner }}
+            <small>Choisissez une image de bannière pour votre subraddot (1200×400 recommandé)</small>
+            {% if form.banner.errors %}
+                <div class="error-message">{{ form.banner.errors.0 }}</div>
+            {% endif %}
+            <div class="image-preview">
+                <img id="banner-preview" src="#" alt="Aperçu de la bannière">
+            </div>
+        </div>
+
+        <div class="form-group">
+            {{ form.icon.label_tag }}
+            {{ form.icon }}
+            <small>Choisissez une icône pour votre subraddot (format carré recommandé)</small>
+            {% if form.icon.errors %}
+                <div class="error-message">{{ form.icon.errors.0 }}</div>
+            {% endif %}
+            <div class="image-preview">
+                <img id="icon-preview" src="#" alt="Aperçu de l'icône">
+            </div>
+        </div>
+
+        <div class="actions-container">
+            <a href="{% url 'social_app:homepage' %}" class="cancel-btn">Annuler</a>
+            <button type="submit" class="submit-btn">Créer le subraddot</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    document.getElementById('{{ form.banner.id_for_label }}').onchange = function(event) {
+        var output = document.getElementById('banner-preview');
+        output.src = URL.createObjectURL(event.target.files[0]);
+        output.style.display = 'block';
+    };
+
+    document.getElementById('{{ form.icon.id_for_label }}').onchange = function(event) {
+        var output = document.getElementById('icon-preview');
+        output.src = URL.createObjectURL(event.target.files[0]);
+        output.style.display = 'block';
+    };
+</script>
+{% endblock %}

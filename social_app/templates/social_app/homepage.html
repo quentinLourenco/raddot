@@ -77,12 +77,12 @@
                         <div class="card">
                             <div class="card-body empty-state">
                                 <h3>C'est bien vide par ici...</h3>
-                                <p>Vous n'êtes abonné à aucune communauté et vous n'en avez créé aucune.
-                                    Commencez par créer votre propre communauté ou rejoindre des communautés
+                                <p>Vous n'êtes abonné à aucun subraddot et vous n'en avez créé aucun.
+                                    Commencez par créer votre propre subraddot ou rejoindre des subraddots
                                     existantes.</p>
                                 <div class="action-buttons">
-                                    <a href="#" class="action-button primary-btn">Créer une communauté</a>
-                                    <a href="#" class="action-button secondary-btn">Découvrir des communautés</a>
+                                    <a href="{% url 'social_app:create_subraddot' %}" class="action-button primary-btn">Créer un subraddot</a>
+                                    <a href="#" class="action-button secondary-btn">Découvrir des subraddot</a>
                                 </div>
                             </div>
                         </div>
@@ -94,7 +94,6 @@
                         </div>
                         <div class="card-body">
                             <p>Les publications s'afficheront ici une fois implémentées.</p>
-                            <!-- Ici viendra la liste des posts -->
                         </div>
                     </div>
                 {% endif %}
