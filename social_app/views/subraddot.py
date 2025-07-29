@@ -1,10 +1,12 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.http import Http404
+from django.contrib.auth.decorators import login_required
 
 from social_app.forms.create_subraddot import CreateSubraddotForm
 from social_app.models.Subraddot import Subraddot
 from social_app.forms.update_subraddot import UpdateSubraddotForm
+from social_app.models.Post import Post
 
 def create_subraddot(request):
     if request.method == 'POST':
@@ -51,3 +53,17 @@ def update_subraddot(request, name):
         'form': form,
         'subraddot': subraddot
     })
+
+def subraddot_detail(request, name):
+    subraddot = get_object_or_404(Subraddot, name=name)
+
+    posts = Post.objects.filter(subraddot=subraddot).order_by('-created_at')
+
+    context = {
+        'subraddot': subraddot,
+        'posts': posts,
+        'is_creator': request.user == subraddot.creator if request.user.is_authenticated else False,
+        'is_member': False,
+    }
+
+    return render(request, 'social_app/subraddot_detail.html', context)

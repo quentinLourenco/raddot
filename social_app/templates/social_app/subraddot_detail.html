@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <link rel="stylesheet" href="{% static 'subraddots.css' %}">
+    <link rel="stylesheet" href="{% static 'subraddot_detail.css' %}">
+    <div class="subraddot-page">
+        {% if subraddot.banner %}
+            <div class="subraddot-banner" style="background-image: url('{{ subraddot.banner.url }}')"></div>
+        {% else %}
+            <div class="subraddot-banner"></div>
+        {% endif %}
+
+        <div class="subraddot-header">
+            <div class="subraddot-icon-large">
+                {% if subraddot.icon %}
+                    <img src="{{ subraddot.icon.url }}" alt="r/{{ subraddot.name }}">
+                {% else %}
+                    {{ subraddot.name.0|upper }}
+                {% endif %}
+            </div>
+
+            <div class="subraddot-info">
+                <h2 class="subraddot-title">r/{{ subraddot.name }}</h2>
+                <div class="subraddot-meta">
+                    Créé par <strong>{{ subraddot.creator.username }}</strong>
+                    le {{ subraddot.created_at|date:"d/m/Y" }}
+                </div>
+                <div class="subraddot-description">
+                    {{ subraddot.description }}
+                </div>
+            </div>
+
+            <div class="subraddot-actions">
+                {% if user.is_authenticated %}
+                    {% if is_creator %}
+                        <a href="{% url 'social_app:update_subraddot' name=subraddot.name %}" class="edit-button">Modifier</a>
+                    {% elif is_member %}
+                        <button class="join-button joined-button">Membre</button>
+                    {% else %}
+                        <button class="join-button">Rejoindre</button>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="posts-container">
+            {% if user.is_authenticated %}
+                <div class="create-post-card">
+                    <div class="create-post-message">
+                        Partagez votre contenu avec la communauté r/{{ subraddot.name }}
+                    </div>
+                    <a href="#" class="create-post-button">Créer un post</a>
+                </div>
+            {% endif %}
+
+            {% if posts %}
+                {% for post in posts %}
+                    <div class="post-card">
+                        <div class="post-header">
+                            <span class="post-author">{{ post.author.username }}</span>
+                            <span class="post-time">{{ post.created_at|timesince }}</span>
+                        </div>
+                        <h2 class="post-title">{{ post.title }}</h2>
+                        <div class="post-content">
+                            {{ post.content }}
+                        </div>
+                        <div class="post-actions">
+                            <div class="post-action">
+                                <span>⬆️</span>
+                                <span>{{ post.votes }}</span>
+                                <span>⬇️</span>
+                            </div>
+                            <div class="post-action">
+                                <span>💬</span>
+                                <span>{{ post.comments.count }}</span>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="post-card">
+                    <div class="post-content" style="text-align: center;">
+                        <p>Il n'y a pas encore de posts dans cette communauté.</p>
+                        <p>Soyez le premier à partager du contenu!</p>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
