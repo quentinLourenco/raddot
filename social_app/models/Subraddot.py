@@ -4,7 +4,7 @@ from django.utils import timezone
 from user_manager.models import User
 
 
-class Subreddit(models.Model):
+class Subraddot(models.Model):
     name = models.CharField(max_length=100, unique=True)
     description = models.TextField(blank=True)
     banner = models.ImageField(upload_to='subreddit/banners/', null=True, blank=True)

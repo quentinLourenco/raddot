@@ -2,7 +2,7 @@ from django.db import models
 from django.utils import timezone
 
 from user_manager.models import User
-from .subreddit import Subreddit
+from .Subraddot import Subraddot
 
 class Post(models.Model):
     POST_TYPES = (
@@ -16,7 +16,7 @@ class Post(models.Model):
     content = models.TextField(blank=True, null=True)
     img = models.ImageField(upload_to='posts/images/', null=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts')
-    subreddit = models.ForeignKey(Subreddit, on_delete=models.CASCADE, related_name='posts')
+    subraddot = models.ForeignKey(Subraddot, on_delete=models.CASCADE, related_name='posts')
     created_at = models.DateTimeField(default=timezone.now)
 
     def __str__(self):

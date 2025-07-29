@@ -2,7 +2,7 @@ from django.db import models
 from django.utils import timezone
 
 from user_manager.models import User
-from .post import Post
+from .Post import Post
 
 class VotePost(models.Model):
     VOTE_VALUES = (
