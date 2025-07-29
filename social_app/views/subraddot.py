@@ -28,14 +28,6 @@ def subraddot_create(request):
     })
 
 
-def subraddots_list(request):
-    subraddots = Subraddot.objects.all()
-    return render(request, 'social_app/subraddots_list.html', {
-        'title': 'Découvrir des subraddots',
-        'subraddots': subraddots,
-    })
-
-
 def subraddot_update(request, name):
     subraddot = get_object_or_404(Subraddot, name=name)
 
@@ -60,23 +52,66 @@ def subraddot_update(request, name):
 
 def subraddot_home(request, name):
     subraddot = get_object_or_404(Subraddot, name=name)
-
     posts = Post.objects.filter(subraddot=subraddot).order_by('-created_at')
 
     context = {
         'subraddot': subraddot,
         'posts': posts,
-        'is_creator': request.user == subraddot.creator if request.user.is_authenticated else False,
-        'is_member': False,
+        'is_member': request.user in subraddot.members.all() if request.user.is_authenticated else False
     }
 
     return render(request, 'social_app/subraddot_home.html', context)
 
 
+@login_required
 def user_subraddots(request):
-    user_subraddots = Subraddot.objects.filter(creator=request.user).order_by('-created_at')
+    created_subraddots = Subraddot.objects.filter(creator=request.user)
+    joined_subraddots = request.user.joined_subraddots.all()
 
-    return render(request, 'social_app/my_subraddots.html', {
-        'subraddots': user_subraddots,
-        'title': 'Mes subraddots',
-    })
+    context = {
+        'created_subraddots': created_subraddots,
+        'joined_subraddots': joined_subraddots,
+        'title': 'Mes Subraddots'
+    }
+
+    return render(request, 'social_app/user_subraddots.html', context)
+
+
+@login_required
+def join_subraddot(request, name):
+    if request.method == 'POST':
+        subraddot = get_object_or_404(Subraddot, name=name)
+
+        # Vérifier si l'utilisateur est déjà membre
+        if request.user in subraddot.members.all():
+            messages.info(request, f"Vous êtes déjà membre de r/{subraddot.name}")
+        else:
+            subraddot.members.add(request.user)
+            messages.success(request, f"Vous avez rejoint r/{subraddot.name} avec succès!")
+
+        # Redirection vers la page d'où vient la requête ou vers la page du subraddot
+        next_url = request.POST.get('next', f'/home/r/{name}/')
+        return redirect(next_url)
+
+    return redirect('social_app:subraddot_home', name=name)
+
+
+@login_required
+def leave_subraddot(request, name):
+    if request.method == 'POST':
+        subraddot = get_object_or_404(Subraddot, name=name)
+
+        # Vérifier si l'utilisateur est le créateur (ne peut pas quitter son propre subraddot)
+        if subraddot.creator == request.user:
+            messages.error(request, "Vous ne pouvez pas quitter un subraddot que vous avez créé!")
+        elif request.user in subraddot.members.all():
+            subraddot.members.remove(request.user)
+            messages.success(request, f"Vous avez quitté r/{subraddot.name}")
+        else:
+            messages.info(request, f"Vous n'êtes pas membre de r/{subraddot.name}")
+
+        # Redirection vers la page d'où vient la requête ou vers la page du subraddot
+        next_url = request.POST.get('next', f'/home/r/{name}/')
+        return redirect(next_url)
+
+    return redirect('social_app:subraddot_home', name=name)

@@ -11,6 +11,7 @@ class Subraddot(models.Model):
     icon = models.ImageField(upload_to='media/subraddot/icons/', null=True, blank=True)
     creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name='created_subraddots')
     created_at = models.DateTimeField(default=timezone.now)
+    members = models.ManyToManyField(User, related_name='joined_subraddots', blank=True)
 
     def __str__(self):
         return self.name

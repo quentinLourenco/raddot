@@ -1,46 +1,34 @@
-{% comment %}
-Composant réutilisable pour afficher une carte de subraddot
-Paramètres:
-- subraddot: L'objet Subraddot à afficher
-- user: L'utilisateur actuel
-- is_creator: Booléen indiquant si l'utilisateur est le créateur du subraddot
-- is_member: Booléen indiquant si l'utilisateur est membre du subraddot
-{% endcomment %}
+{% load static %}
 
-<a href="{% url 'social_app:subraddot_home' name=subraddot.name %}" class="subraddot-card">
+<div class="subraddot-card">
     <div class="subraddot-icon">
         {% if subraddot.icon %}
-            <img src="{{ subraddot.icon.url }}" alt="{{ subraddot.name }}">
+            <img src="{{ subraddot.icon.url }}" alt="{{ subraddot.name }} icon">
         {% else %}
-            {{ subraddot.name.0|upper }}
+            <div class="default-icon">r/{{ subraddot.name|slice:":1" }}</div>
         {% endif %}
     </div>
-    <div class="subraddot-content">
-        <div>
-            <h2 class="subraddot-name">r/{{ subraddot.name }}</h2>
-            <p class="subraddot-description">{{ subraddot.description }}</p>
-        </div>
-        <div class="subraddot-info">
-            <span class="subraddot-members">
-                {% if subraddot.member_count == 1 %}
-                    1 membre
-                {% else %}
-                    {{ subraddot.member_count|default:"0" }} membres
-                {% endif %}
-            </span>
-            {% if user.is_authenticated %}
-                <div class="subraddot-actions">
-                    <a href="{% url 'social_app:subraddot_home' name=subraddot.name %}" class="view-button">Voir</a>
 
-                    {% if is_creator %}
-                        <a href="{% url 'social_app:update_subraddot' name=subraddot.name %}" class="edit-button">Modifier</a>
-                    {% elif is_member %}
-                        <button class="leave-button" data-subraddot="{{ subraddot.name }}">Quitter</button>
-                    {% else %}
-                        <button class="join-button" data-subraddot="{{ subraddot.name }}">Rejoindre</button>
-                    {% endif %}
-                </div>
-            {% endif %}
-        </div>
+    <div class="subraddot-info">
+        <h3 class="subraddot-name">r/{{ subraddot.name }}</h3>
+        <p class="subraddot-description">{{ subraddot.description|truncatechars:100 }}</p>
+        <p class="subraddot-members">{{ subraddot.members.count }} membres</p>
     </div>
-</a>
+
+    <div class="subraddot-actions">
+        {% if request.user == subraddot.creator %}
+            <a href="{% url 'social_app:update_subraddot' name=subraddot.name %}" class="btn btn-edit">Modifier</a>
+        {% elif request.user in subraddot.members.all %}
+            <form method="post" action="{% url 'social_app:leave_subraddot' name=subraddot.name %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-leave">Quitter</button>
+            </form>
+        {% else %}
+            <form method="post" action="{% url 'social_app:join_subraddot' name=subraddot.name %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-join">Rejoindre</button>
+            </form>
+        {% endif %}
+        <a href="{% url 'social_app:subraddot_home' name=subraddot.name %}" class="btn btn-visit">Visiter</a>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'discover.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="discover-container">
+    <h1>Découvrir des subraddots</h1>
+    <p class="discover-description">Explorez de nouvelles communautés ou retrouvez celles que vous connaissez déjà.</p>
+
+    {% include "social_app/components/subraddot_card_list.html" with subraddots=subraddots filter=filter %}
+</div>
+{% endblock %}

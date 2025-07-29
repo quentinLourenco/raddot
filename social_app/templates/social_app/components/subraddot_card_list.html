@@ -1,0 +1,37 @@
+{% load static %}
+
+<div class="subraddot-list-container">
+    <div class="subraddot-filters">
+        <h3>Filtres</h3>
+        <form method="get" class="filters-form">
+            <div class="filter-option">
+                <input type="radio" id="all" name="filter" value="all" {% if filter == 'all' or not filter %}checked{% endif %}>
+                <label for="all">Tous les subraddots</label>
+            </div>
+
+            <div class="filter-option">
+                <input type="radio" id="created" name="filter" value="created" {% if filter == 'created' %}checked{% endif %}>
+                <label for="created">Mes créations</label>
+            </div>
+
+            <div class="filter-option">
+                <input type="radio" id="joined" name="filter" value="joined" {% if filter == 'joined' %}checked{% endif %}>
+                <label for="joined">Mes abonnements</label>
+            </div>
+
+            <button type="submit" class="btn filter-btn">Appliquer</button>
+        </form>
+    </div>
+
+    <div class="subraddot-list">
+        {% if subraddots %}
+            {% for subraddot in subraddots %}
+                {% include "social_app/components/subraddot_card.html" with subraddot=subraddot %}
+            {% endfor %}
+        {% else %}
+            <div class="no-results">
+                <p>Aucun subraddot trouvé pour ce filtre.</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
