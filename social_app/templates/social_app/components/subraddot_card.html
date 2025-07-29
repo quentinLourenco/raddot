@@ -21,11 +21,13 @@
         {% elif request.user in subraddot.members.all %}
             <form method="post" action="{% url 'social_app:leave_subraddot' name=subraddot.name %}">
                 {% csrf_token %}
+                <input type="hidden" name="next" value="{{ request.path }}">
                 <button type="submit" class="btn btn-leave">Quitter</button>
             </form>
         {% else %}
             <form method="post" action="{% url 'social_app:join_subraddot' name=subraddot.name %}">
                 {% csrf_token %}
+                <input type="hidden" name="next" value="{{ request.path }}">
                 <button type="submit" class="btn btn-join">Rejoindre</button>
             </form>
         {% endif %}

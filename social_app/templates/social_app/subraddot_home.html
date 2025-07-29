@@ -36,9 +36,17 @@
                     {% if is_creator %}
                         <a href="{% url 'social_app:update_subraddot' name=subraddot.name %}" class="edit-button">Modifier</a>
                     {% elif is_member %}
-                        <button class="join-button joined-button">Membre</button>
+                        <form method="post" action="{% url 'social_app:leave_subraddot' name=subraddot.name %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="next" value="{{ request.path }}">
+                            <button type="submit" class="join-button joined-button">Membre</button>
+                        </form>
                     {% else %}
-                        <button class="join-button">Rejoindre</button>
+                        <form method="post" action="{% url 'social_app:join_subraddot' name=subraddot.name %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="next" value="{{ request.path }}">
+                            <button type="submit" class="join-button">Rejoindre</button>
+                        </form>
                     {% endif %}
                 {% endif %}
             </div>
