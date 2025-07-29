@@ -2,37 +2,71 @@
 {% load static %}
 
 {% block content %}
-<div>
-    <div>
-        <h2>Connexion</h2>
+    <link rel="stylesheet" href="{% static 'forms.css' %}">
+    <link rel="stylesheet" href="{% static 'login.css' %}">
+    <div class="login-container">
+        <div class="login-header">
+            <h1>Bienvenue sur Raddot</h1>
+            <p>Connectez-vous pour continuer</p>
+        </div>
+
         {% if messages %}
-        {% for message in messages %}
-        <div class="alert-{{ message.tags }}">{{ message }}</div>
-        {% endfor %}
+            {% for message in messages %}
+                <div class="{% if message.tags == 'error' %}error-message{% else %}success-message{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
         {% endif %}
-        <form method="post" novalidate>
+
+        <form method="post" novalidate class="login-form">
+            <h2>Connexion</h2>
             {% csrf_token %}
             {{ form.non_field_errors }}
-            <div>
+            <div class="form-group">
                 {{ form.email.label_tag }}
                 {{ form.email }}
                 {% for error in form.email.errors %}
-                <div>{{ error }}</div>
+                    <div class="error-message">{{ error }}</div>
                 {% endfor %}
             </div>
-            <div>
+            <div class="form-group">
                 {{ form.password.label_tag }}
                 {{ form.password }}
                 {% for error in form.password.errors %}
-                <div>{{ error }}</div>
+                    <div class="error-message">{{ error }}</div>
                 {% endfor %}
             </div>
-            <button type="submit">Se connecter</button>
-        </form>
 
-        <div>
-            Vous n'avez pas encore de compte ? <a href="{% url 'user_manager:register' %}">Inscrivez-vous</a>
-        </div>
+            <div class="remember-me">
+                <input type="checkbox" id="remember-me" name="remember-me">
+                <label for="remember-me">Se souvenir de moi</label>
+            </div>
+
+            <div class="forgot-password">
+                <a href="#">Mot de passe oublié ?</a>
+            </div>
+
+            <button type="submit">Se connecter</button>
+
+            <div class="form-divider">ou</div>
+
+            <div class="social-login">
+                <div class="social-buttons">
+                    <a href="#" class="social-button">
+                        <img src="https://cdn-icons-png.flaticon.com/512/124/124010.png" alt="Facebook">
+                    </a>
+                    <a href="#" class="social-button">
+                        <img src="https://cdn-icons-png.flaticon.com/512/281/281764.png" alt="Google">
+                    </a>
+                    <a href="#" class="social-button">
+                        <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub">
+                    </a>
+                </div>
+            </div>
+
+            <div class="form-footer">
+                Vous n'avez pas encore de compte ? <a href="{% url 'user_manager:register' %}">Inscrivez-vous</a>
+            </div>
+        </form>
     </div>
-</div>
 {% endblock %}

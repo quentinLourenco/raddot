@@ -12,9 +12,6 @@ class ProtectRoutesMiddleware:
         if path.startswith('/auth/'):
             return self.get_response(request)
 
-        # if path.startswith('/static/') or path.startswith('/media/'):
-        #     return self.get_response(request)
-
         if not request.user.is_authenticated:
             return redirect('user_manager:login')
 

@@ -1,0 +1,201 @@
+/* Register Page Specific Styles for Raddot */
+
+/* Main container styling */
+.register-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+    background: linear-gradient(135deg, #f5f7fc, #e8f0ff);
+    padding: 20px;
+}
+
+/* Register header styling */
+.register-header {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.register-header h1 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #ff4500;
+    margin-bottom: 10px;
+}
+
+.register-header p {
+    color: #878a8c;
+    font-size: 16px;
+}
+
+/* Register form styling - extends forms.css */
+.register-form {
+    width: 100%;
+    max-width: 550px; /* Larger than login form for multiple fields */
+}
+
+/* Form rows for side-by-side fields */
+.form-row {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 10px;
+}
+
+.form-row .form-group {
+    flex: 1;
+    min-width: 0; /* Prevent overflow on small screens */
+}
+
+/* Style specifically for the birthdate field */
+input[type="date"] {
+    color: #1a1a1b;
+    font-family: inherit;
+}
+
+/* Terms checkbox styling */
+.terms-checkbox {
+    display: flex;
+    align-items: flex-start;
+    margin: 20px 0;
+}
+
+.terms-checkbox input[type="checkbox"] {
+    margin-right: 10px;
+    margin-top: 3px;
+    accent-color: #ff4500;
+}
+
+.terms-checkbox label {
+    font-size: 13px;
+    line-height: 1.4;
+    color: #1a1a1b;
+    margin-bottom: 0;
+}
+
+.terms-checkbox a {
+    color: #ff4500;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.terms-checkbox a:hover {
+    text-decoration: underline;
+    color: #ff5414;
+}
+
+/* Social signup options - harmonisé avec login.css */
+.social-signup {
+    margin-top: 25px;
+    text-align: center;
+}
+
+.social-login-heading {
+    position: relative;
+    margin: 20px 0;
+    color: #878a8c;
+    font-size: 14px;
+}
+
+.social-login-heading:before,
+.social-login-heading:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 30%;
+    height: 1px;
+    background-color: #edeff1;
+}
+
+.social-login-heading:before {
+    left: 0;
+}
+
+.social-login-heading:after {
+    right: 0;
+}
+
+/* Social buttons */
+.social-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.social-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.social-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+}
+
+.social-button img {
+    width: 24px;
+    height: 24px;
+}
+
+/* Password strength indicator */
+.password-strength {
+    height: 5px;
+    margin-top: 8px;
+    border-radius: 3px;
+    transition: all 0.3s;
+}
+
+.strength-weak {
+    background-color: #ea0027;
+    width: 30%;
+}
+
+.strength-medium {
+    background-color: #ffb700;
+    width: 60%;
+}
+
+.strength-strong {
+    background-color: #46d160;
+    width: 100%;
+}
+
+/* Animation for the form - harmonisé avec login.css */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.register-container {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .register-form {
+        max-width: 100%;
+    }
+
+    .register-header h1 {
+        font-size: 28px;
+    }
+}

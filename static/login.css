@@ -1,0 +1,198 @@
+/* Login Page Specific Styles for Raddot */
+
+/* Main container styling */
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+    background: linear-gradient(135deg, #f7f9fc, #eef2f7);
+    padding: 20px;
+}
+
+/* Login header styling */
+.login-header {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.login-header h1 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #ff4500;
+    margin-bottom: 10px;
+}
+
+.login-header p {
+    color: #878a8c;
+    font-size: 16px;
+}
+
+/* Login form styling - extends forms.css */
+.login-form {
+    width: 100%;
+    max-width: 400px;
+}
+
+/* Remember me checkbox styling */
+.remember-me {
+    display: flex;
+    align-items: center;
+    margin: 15px 0;
+}
+
+.remember-me input[type="checkbox"] {
+    accent-color: #ff4500;
+    margin-right: 8px;
+}
+
+.remember-me label {
+    color: #1a1a1b;
+    font-size: 14px;
+    margin-bottom: 0;
+}
+
+/* Forgot password link */
+.forgot-password {
+    text-align: right;
+    margin-bottom: 20px;
+}
+
+.forgot-password a {
+    color: #0079d3;
+    font-size: 14px;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.forgot-password a:hover {
+    color: #ff4500;
+    text-decoration: underline;
+}
+
+/* Social login options */
+.social-login {
+    margin-top: 25px;
+    text-align: center;
+}
+
+.social-login-heading {
+    position: relative;
+    margin: 20px 0;
+    color: #878a8c;
+    font-size: 14px;
+}
+
+.social-login-heading:before,
+.social-login-heading:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 30%;
+    height: 1px;
+    background-color: #edeff1;
+}
+
+.social-login-heading:before {
+    left: 0;
+}
+
+.social-login-heading:after {
+    right: 0;
+}
+
+/* Social buttons */
+.social-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.social-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.social-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+}
+
+.social-button img {
+    width: 24px;
+    height: 24px;
+}
+
+/* Register now section */
+.register-now {
+    margin-top: 30px;
+    text-align: center;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.register-now p {
+    color: #1a1a1b;
+    font-size: 15px;
+    margin-bottom: 15px;
+}
+
+.register-link {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #ff4500;
+    color: #ffffff;
+    border-radius: 20px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.register-link:hover {
+    background-color: #ff5414;
+    transform: translateY(-2px);
+    box-shadow: 0 3px 6px rgba(255, 69, 0, 0.3);
+}
+
+/* Animation effects */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.login-container {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    .login-header h1 {
+        font-size: 28px;
+    }
+
+    .social-buttons {
+        gap: 10px;
+    }
+
+    .social-button {
+        width: 45px;
+        height: 45px;
+    }
+}
