@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
-from .user import User
+
+from user_manager.models import User
 from .post import Post
 
 class Comment(models.Model):

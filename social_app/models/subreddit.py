@@ -1,6 +1,8 @@
 from django.db import models
-from .user import User
 from django.utils import timezone
+
+from user_manager.models import User
+
 
 class Subreddit(models.Model):
     name = models.CharField(max_length=100, unique=True)
