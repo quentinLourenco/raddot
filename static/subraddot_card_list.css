@@ -34,12 +34,12 @@
 
 .filter-btn {
     margin-left: auto;
-    background-color: #0079d3;
+    background-color: #ff4500;
     color: white;
 }
 
 .filter-btn:hover {
-    background-color: #0061a9;
+    background-color: #e03d00;
 }
 
 .subraddot-list {

@@ -102,20 +102,20 @@
 }
 
 .btn-edit {
-    background-color: #0079d3;
+    background-color: #ff4500;
     color: white;
 }
 
 .btn-edit:hover {
-    background-color: #0061a9;
+    background-color: #e03d00;
 }
 
 .btn-visit {
     background-color: transparent;
-    color: #0079d3;
-    border: 1px solid #0079d3;
+    color: #ff4500;
+    border: 1px solid #ff4500;
 }
 
 .btn-visit:hover {
-    background-color: rgba(0,121,211,0.1);
+    background-color: rgba(255,69,0,0.1);
 }
