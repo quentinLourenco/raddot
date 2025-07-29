@@ -1,6 +1,7 @@
 from django import forms
 from social_app.models.Subraddot import Subraddot
 
+
 class CreateSubraddotForm(forms.ModelForm):
     class Meta:
         model = Subraddot
@@ -34,4 +35,10 @@ class CreateSubraddotForm(forms.ModelForm):
                 raise forms.ValidationError(
                     "Le nom du subraddot ne peut contenir que des lettres, des chiffres, des tirets et des underscores."
                 )
-        return name
+
+            reserved_names = ['discover', 'create']
+            if name.lower() in reserved_names:
+                raise forms.ValidationError(
+                    f"Le nom '{name}' est réservé et ne peut pas être utilisé pour une communauté."
+                )
+        return name.lower()
