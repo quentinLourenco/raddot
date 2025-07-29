@@ -4,4 +4,4 @@ from django.shortcuts import redirect
 
 def logout(request):
     auth_logout(request)
-    return redirect('login')
+    return redirect('user_manager:login')
