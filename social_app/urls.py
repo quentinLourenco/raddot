@@ -1,17 +1,16 @@
 from django.urls import path
 
 from social_app.views.homepage import homepage
-from social_app.views.my_subraddots import my_subraddots
-from social_app.views.subraddot import create_subraddot, discover_subraddots, update_subraddot, subraddot_detail
+from social_app.views.subraddot import subraddot_create, subraddots_list, subraddot_update, subraddot_home, \
+    user_subraddots
 
 urlpatterns = [
     path('', homepage, name='homepage'),
 
-    path('r/discover/', discover_subraddots, name='discover_subraddots'),
-    path('r/create/', create_subraddot, name='create_subraddot'),
-    path('r/<str:name>/', subraddot_detail, name='subraddot_detail'),
-    path('my_subraddots/', my_subraddots, name='my_subraddots'),
-
-    path('r/<str:name>/update/', update_subraddot, name='update_subraddot'),
+    path('r/discover/', subraddots_list, name='subraddots_list'),
+    path('r/create/', subraddot_create, name='subraddot_create'),
+    path('r/<str:name>/', subraddot_home, name='subraddot_home'),
+    path('my_subraddots/', user_subraddots, name='user_subraddots'),
+    path('r/<str:name>/update/', subraddot_update, name='update_subraddot'),
 
 ]

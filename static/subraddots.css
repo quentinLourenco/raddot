@@ -91,26 +91,63 @@
     -webkit-box-orient: vertical;
 }
 
-.join-button {
-    background-color: #edeff1;
-    color: #1a1a1b;
-    border: none;
-    border-radius: 20px;
-    padding: 6px 16px;
+/* Styles pour les actions des cartes de subraddot */
+.subraddot-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.view-button, .edit-button, .join-button, .leave-button {
+    padding: 6px 12px;
+    border-radius: 16px;
     font-size: 12px;
     font-weight: 600;
     cursor: pointer;
+    text-decoration: none;
     transition: all 0.2s;
+    border: none;
+    display: inline-block;
+    text-align: center;
+}
+
+.view-button {
+    background-color: #edeff1;
+    color: #1a1a1b;
+}
+
+.view-button:hover {
+    background-color: #d7d8da;
+}
+
+.edit-button {
+    background: linear-gradient(to right, #ff4500, #ff5414);
+    color: white;
+    box-shadow: 0 2px 4px rgba(255, 69, 0, 0.2);
+}
+
+.edit-button:hover {
+    background: linear-gradient(to right, #ff5414, #ff3000);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(255, 69, 0, 0.3);
+}
+
+.join-button {
+    background-color: #0079d3;
+    color: white;
 }
 
 .join-button:hover {
-    background-color: #ff4500;
-    color: white;
+    background-color: #0060a8;
 }
 
-.joined-button {
-    background-color: #ff4500;
-    color: white;
+.leave-button {
+    background-color: #edeff1;
+    color: #1a1a1b;
+    border: 1px solid #7c7c7c;
+}
+
+.leave-button:hover {
+    background-color: #d7d8da;
 }
 
 .empty-state {

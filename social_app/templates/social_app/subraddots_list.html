@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Découvrir des communautés{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'subraddots.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="discover-container">
+    <h1 class="page-title">Découvrir des communautés</h1>
+
+    {% if subraddots %}
+        <div class="subraddot-list">
+            {% for subraddot in subraddots %}
+                {% with is_creator=subraddot.creator.id == user.id %}
+                    {% include "social_app/components/subraddot_card.html" with
+                        subraddot=subraddot
+                        is_creator=is_creator
+                        is_member=False %}
+                {% endwith %}
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="empty-state">
+            <h3>Aucune communauté trouvée</h3>
+            <p>Soyez le premier à créer une communauté sur Raddot!</p>
+            {% if user.is_authenticated %}
+                <a href="{% url 'social_app:create_subraddot' %}" class="join-button">Créer une communauté</a>
+            {% endif %}
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

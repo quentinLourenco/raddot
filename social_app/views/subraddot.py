@@ -8,7 +8,8 @@ from social_app.models.Subraddot import Subraddot
 from social_app.forms.update_subraddot import UpdateSubraddotForm
 from social_app.models.Post import Post
 
-def create_subraddot(request):
+
+def subraddot_create(request):
     if request.method == 'POST':
         form = CreateSubraddotForm(request.POST, request.FILES)
         if form.is_valid():
@@ -21,19 +22,21 @@ def create_subraddot(request):
     else:
         form = CreateSubraddotForm()
 
-    return render(request, 'social_app/create_subraddot.html', {
+    return render(request, 'social_app/subraddot_create.html', {
         'form': form,
         'title': 'Créer un subraddot',
     })
 
-def discover_subraddots(request):
+
+def subraddots_list(request):
     subraddots = Subraddot.objects.all()
-    return render(request, 'social_app/discover_subraddots.html', {
+    return render(request, 'social_app/subraddots_list.html', {
         'title': 'Découvrir des subraddots',
         'subraddots': subraddots,
     })
 
-def update_subraddot(request, name):
+
+def subraddot_update(request, name):
     subraddot = get_object_or_404(Subraddot, name=name)
 
     # Vérifier que l'utilisateur est bien le créateur
@@ -49,12 +52,13 @@ def update_subraddot(request, name):
     else:
         form = UpdateSubraddotForm(instance=subraddot)
 
-    return render(request, 'social_app/update_subraddot.html', {
+    return render(request, 'social_app/subraddot_update.html', {
         'form': form,
         'subraddot': subraddot
     })
 
-def subraddot_detail(request, name):
+
+def subraddot_home(request, name):
     subraddot = get_object_or_404(Subraddot, name=name)
 
     posts = Post.objects.filter(subraddot=subraddot).order_by('-created_at')
@@ -66,4 +70,13 @@ def subraddot_detail(request, name):
         'is_member': False,
     }
 
-    return render(request, 'social_app/subraddot_detail.html', context)
+    return render(request, 'social_app/subraddot_home.html', context)
+
+
+def user_subraddots(request):
+    user_subraddots = Subraddot.objects.filter(creator=request.user).order_by('-created_at')
+
+    return render(request, 'social_app/my_subraddots.html', {
+        'subraddots': user_subraddots,
+        'title': 'Mes subraddots',
+    })

@@ -38,7 +38,7 @@ class CreateSubraddotTest(TestCase):
         response = self.client.get(self.create_url)
         # Vérifier que la page s'affiche correctement
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'social_app/create_subraddot.html')
+        self.assertTemplateUsed(response, 'social_app/subraddot_create.html')
         self.assertIsInstance(response.context['form'], CreateSubraddotForm)
 
     def test_create_subraddot_with_valid_data(self):
