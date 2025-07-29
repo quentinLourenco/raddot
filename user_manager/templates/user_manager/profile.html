@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Mon profil{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'forms.css' %}">
+<link rel="stylesheet" href="{% static 'profile.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <div class="profile-header">
+        <div class="profile-avatar">
+            {{ user.username.0|upper }}
+        </div>
+        <div class="profile-info">
+            <h1>{{ user.username }}</h1>
+            <p>Membre depuis {{ user.created_at|date:"F Y" }}</p>
+        </div>
+    </div>
+
+    <div class="profile-content">
+        <div class="profile-section">
+            <h2>Informations personnelles</h2>
+
+            <div class="profile-field">
+                <label>Nom d'utilisateur</label>
+                <div class="profile-field-value">{{ user.username }}</div>
+            </div>
+
+            <div class="profile-field">
+                <label>Email</label>
+                <div class="profile-field-value">{{ user.email }}</div>
+            </div>
+
+            <div class="profile-field">
+                <label>Prénom</label>
+                <div class="profile-field-value">
+                    {% if user.first_name %}
+                        {{ user.first_name }}
+                    {% else %}
+                        <em>Non renseigné</em>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="profile-field">
+                <label>Nom</label>
+                <div class="profile-field-value">
+                    {% if user.last_name %}
+                        {{ user.last_name }}
+                    {% else %}
+                        <em>Non renseigné</em>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="profile-field">
+                <label>Date de naissance</label>
+                <div class="profile-field-value">
+                    {% if user.birth_date %}
+                        {{ user.birth_date|date:"d F Y" }}
+                    {% else %}
+                        <em>Non renseignée</em>
+                    {% endif %}
+                </div>
+            </div>
+
+            <button class="edit-profile-btn">Modifier mon profil</button>
+        </div>
+
+        <div class="profile-section">
+            <h2>Activité</h2>
+            <p>Votre historique d'activité s'affichera ici.</p>
+
+            <h2>Paramètres du compte</h2>
+            <div class="profile-field">
+                <label>Statut du compte</label>
+                <div class="profile-field-value">
+                    {% if user.is_active %}
+                        <span style="color: #46d160;">Actif</span>
+                    {% else %}
+                        <span style="color: #ea0027;">Inactif</span>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="profile-field">
+                <label>Dernière connexion</label>
+                <div class="profile-field-value">
+                    {% if user.last_login %}
+                        {{ user.last_login|date:"d/m/Y à H:i" }}
+                    {% else %}
+                        <em>Inconnue</em>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
