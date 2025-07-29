@@ -2,6 +2,8 @@ from django.urls import path, include
 from django.shortcuts import redirect
 from user_manager.views.profile.profile import profile
 from user_manager.views.profile.update_profile import update_profile
+from django.conf import settings
+from django.conf.urls.static import static
 
 def root_redirect(request):
     if request.user.is_authenticated:
@@ -16,3 +18,6 @@ urlpatterns = [
     path('profile/', profile, name='profile'),
     path('profile/edit/', update_profile, name='update_profile'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

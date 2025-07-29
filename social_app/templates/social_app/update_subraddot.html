@@ -1,0 +1,215 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Modifier r/{{ subraddot.name }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'forms.css' %}">
+<style>
+    .update-subraddot-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 80vh;
+        background: linear-gradient(135deg, #f5f7fc, #e8f0ff);
+        padding: 20px;
+    }
+
+    .update-subraddot-header {
+        margin-bottom: 30px;
+        text-align: center;
+    }
+
+    .update-subraddot-header h1 {
+        font-size: 32px;
+        font-weight: 700;
+        color: #ff4500;
+        margin-bottom: 10px;
+    }
+
+    .update-subraddot-header p {
+        color: #878a8c;
+        font-size: 16px;
+    }
+
+    .update-subraddot-form {
+        width: 100%;
+        max-width: 550px;
+        border-top: none;
+    }
+
+    .image-preview {
+        margin-top: 10px;
+        text-align: center;
+    }
+
+    .image-preview img {
+        max-width: 100%;
+        max-height: 200px;
+        border-radius: 4px;
+    }
+
+    .current-image {
+        display: block;
+    }
+
+    .current-image p {
+        font-size: 12px;
+        color: #7c7c7c;
+        margin: 5px 0;
+    }
+
+    .actions-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 30px;
+        gap: 20px;
+    }
+
+    .cancel-btn, .submit-btn {
+        height: 44px;
+        box-sizing: border-box;
+        padding: 0 20px;
+        border: none;
+        border-radius: 6px;
+        font-weight: 600;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        text-decoration: none;
+        font-size: 16px;
+        transition: all 0.3s ease;
+    }
+
+    .cancel-btn {
+        flex: 0.3;
+        background-color: #edeff1;
+        color: #1a1a1b;
+    }
+
+    .cancel-btn:hover {
+        background-color: #d7d8da;
+    }
+
+    .submit-btn {
+        flex: 0.7;
+        background: linear-gradient(to right, #ff4500, #ff5414);
+        color: #ffffff;
+        font-weight: 700;
+        box-shadow: 0 4px 6px rgba(255, 69, 0, 0.2);
+    }
+
+    .submit-btn:hover {
+        background: linear-gradient(to right, #ff5414, #ff3000);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 8px rgba(255, 69, 0, 0.25);
+    }
+
+    @media (min-width: 1200px) {
+        .update-subraddot-form {
+            max-width: 800px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="update-subraddot-container">
+    <div class="update-subraddot-header">
+        <h1>Modifier r/{{ subraddot.name }}</h1>
+        <p>Personnalisez l'apparence et la description de votre communauté</p>
+    </div>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="{% if message.tags == 'error' %}error-message{% else %}success-message{% endif %}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="post" enctype="multipart/form-data" class="update-subraddot-form">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+
+        <div class="form-group">
+            {{ form.description.label_tag }}
+            {{ form.description }}
+            {% if form.description.help_text %}
+                <small>{{ form.description.help_text }}</small>
+            {% endif %}
+            {% if form.description.errors %}
+                <div class="error-message">{{ form.description.errors.0 }}</div>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            {{ form.banner.label_tag }}
+            {{ form.banner }}
+            {% if form.banner.help_text %}
+                <small>{{ form.banner.help_text }}</small>
+            {% endif %}
+            {% if form.banner.errors %}
+                <div class="error-message">{{ form.banner.errors.0 }}</div>
+            {% endif %}
+
+            {% if subraddot.banner %}
+                <div class="current-image">
+                    <p>Image actuelle :</p>
+                    <img src="{{ subraddot.banner.url }}" alt="Bannière actuelle">
+                </div>
+            {% endif %}
+
+            <div class="image-preview">
+                <img id="banner-preview" src="#" alt="Aperçu de la bannière" style="display: none;">
+            </div>
+        </div>
+
+        <div class="form-group">
+            {{ form.icon.label_tag }}
+            {{ form.icon }}
+            {% if form.icon.help_text %}
+                <small>{{ form.icon.help_text }}</small>
+            {% endif %}
+            {% if form.icon.errors %}
+                <div class="error-message">{{ form.icon.errors.0 }}</div>
+            {% endif %}
+
+            {% if subraddot.icon %}
+                <div class="current-image">
+                    <p>Image actuelle :</p>
+                    <img src="{{ subraddot.icon.url }}" alt="Icône actuelle">
+                </div>
+            {% endif %}
+
+            <div class="image-preview">
+                <img id="icon-preview" src="#" alt="Aperçu de l'icône" style="display: none;">
+            </div>
+        </div>
+
+        <div class="actions-container">
+            <a href="{% url 'social_app:my_subraddots' %}" class="cancel-btn">Annuler</a>
+            <button type="submit" class="submit-btn">Enregistrer les modifications</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    // Prévisualisation des images
+    document.getElementById('{{ form.banner.id_for_label }}').onchange = function(event) {
+        var output = document.getElementById('banner-preview');
+        output.src = URL.createObjectURL(event.target.files[0]);
+        output.style.display = 'block';
+    };
+
+    document.getElementById('{{ form.icon.id_for_label }}').onchange = function(event) {
+        var output = document.getElementById('icon-preview');
+        output.src = URL.createObjectURL(event.target.files[0]);
+        output.style.display = 'block';
+    };
+</script>
+{% endblock %}

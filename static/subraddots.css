@@ -1,0 +1,129 @@
+/* Styles pour la page de découverte des subraddots */
+
+.discover-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.page-title {
+    color: #ff4500;
+    font-size: 28px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.subraddot-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.subraddot-card {
+    display: flex;
+    background-color: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    height: 120px;
+    width: 100%;
+}
+
+.subraddot-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(255, 69, 0, 0.15);
+}
+
+.subraddot-icon {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    background-color: #edeff1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #1a1a1b;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.subraddot-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.subraddot-content {
+    flex: 1;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.subraddot-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1a1a1b;
+    margin: 0 0 5px 0;
+}
+
+.subraddot-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.subraddot-members {
+    font-size: 14px;
+    color: #7c7c7c;
+}
+
+.subraddot-description {
+    font-size: 14px;
+    color: #7c7c7c;
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.join-button {
+    background-color: #edeff1;
+    color: #1a1a1b;
+    border: none;
+    border-radius: 20px;
+    padding: 6px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.join-button:hover {
+    background-color: #ff4500;
+    color: white;
+}
+
+.joined-button {
+    background-color: #ff4500;
+    color: white;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.empty-state h3 {
+    color: #ff4500;
+    margin-bottom: 15px;
+}
+
+.empty-state p {
+    color: #7c7c7c;
+    margin-bottom: 20px;
+}
