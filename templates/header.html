@@ -1,0 +1,33 @@
+{% load static %}
+
+<header class="site-header">
+    <div class="header-container">
+        <div class="logo-container">
+            <a href="{% url 'social_app:homepage' %}" class="logo">Raddot</a>
+        </div>
+
+        <div class="center-container">
+        </div>
+
+        <div class="user-menu-container">
+            {% if user.is_authenticated %}
+                <div class="dropdown">
+                    <button class="dropdown-toggle">
+                        <span>{{ user.username }}</span>
+                        <i class="dropdown-icon">▼</i>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">Mon compte</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="{% url 'user_manager:logout' %}" class="dropdown-item">Déconnexion</a>
+                    </div>
+                </div>
+            {% else %}
+                <div class="auth-buttons">
+                    <a href="{% url 'user_manager:login' %}" class="btn-link">Connexion</a>
+                    <a href="{% url 'user_manager:register' %}" class="btn-secondary">Inscription</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</header>

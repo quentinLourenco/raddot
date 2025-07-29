@@ -1,13 +1,21 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raddot - {% block title %}Partagez et discutez{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'base.css' %}">
+    <link rel="stylesheet" href="{% static 'header.css' %}">
+    {% block extra_css %}{% endblock %}
 </head>
 <body>
-<link rel="stylesheet" href="{% static 'base.css' %}">
-{% block content %}
-{% endblock %}
+    {% include "header.html" %}
+
+    <main class="content-container">
+        {% block content %}{% endblock %}
+    </main>
+
+    {% block extra_js %}{% endblock %}
 </body>
 </html>
