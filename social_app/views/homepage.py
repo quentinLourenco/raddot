@@ -22,27 +22,3 @@ def homepage(request):
 
     return render(request, 'social_app/homepage.html', context)
 
-
-# posts = [
-#     {
-#         'subraddot_name': blabla
-#         'post':
-#                 'title': 'Post Title 1',
-#                 'content': 'This is the content of post 1.',
-#                 'created_at': '2023-10-01 12:00:00',
-#                 'author': 'User1'
-#             }
-#     },
-#     {
-#         'subraddot_name': 'Subraddot 2',
-#         'post': [
-#             {
-#                 'title': 'Post Title 2',
-#                 'content': 'This is the content of post 2.',
-#                 'created_at': '2023-10-02 14:30:00',
-#                 'author': 'User2'
-#             }
-#         ]
-#     }
-# ]
-

@@ -2,9 +2,10 @@
 {% load static %}
 
 {% block content %}
-    <link rel="stylesheet" href="{% static 'subraddots.css' %}">
     <link rel="stylesheet" href="{% static 'subraddot_detail.css' %}">
     <link rel="stylesheet" href="{% static 'create_post.css' %}">
+    <link rel="stylesheet" href="{% static 'post.css' %}">
+    <link rel="stylesheet" href="{% static 'post_list.css' %}">
     <div class="subraddot-page">
         {% if subraddot.banner %}
             <div class="subraddot-banner" style="background-image: url('{{ subraddot.banner.url }}')"></div>
@@ -58,38 +59,7 @@
                 {% include "social_app/components/create_post.html" with subraddot=subraddot %}
             {% endif %}
 
-            {% if posts %}
-                {% for post in posts %}
-                    <div class="post-card">
-                        <div class="post-header">
-                            <span class="post-author">{{ post.author.username }}</span>
-                            <span class="post-time">{{ post.created_at|timesince }}</span>
-                        </div>
-                        <h2 class="post-title">{{ post.title }}</h2>
-                        <div class="post-content">
-                            {{ post.content }}
-                        </div>
-                        <div class="post-actions">
-                            <div class="post-action">
-                                <img src="{% static 'assets/vers-le-haut.png' %}" alt="Vote vers le haut" style="width:24px; height:24px; vertical-align:middle;">
-                                <span>{{ post.votes }}</span>
-                                <img src="{% static 'assets/vers-le-bas.png' %}" alt="Vote vers le bas" style="width:24px; height:24px; vertical-align:middle;">
-                            </div>
-                            <div class="post-action">
-                                <img src="{% static 'assets/bulle.png' %}" alt="comments" style="width:24px; height:24px; vertical-align:middle;">
-                                <span>{{ post.comments.count }}</span>
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
-            {% else %}
-                <div class="post-card">
-                    <div class="post-content" style="text-align: center;">
-                        <p>Il n'y a pas encore de posts dans cette communauté.</p>
-                        <p>Soyez le premier à partager du contenu!</p>
-                    </div>
-                </div>
-            {% endif %}
+            {% include "social_app/components/post_list.html" with posts=posts on_subhomepage=True %}
         </div>
     </div>
 {% endblock %}

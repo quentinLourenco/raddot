@@ -126,66 +126,6 @@
     margin: 0 auto;
 }
 
-/* Carte d'un post */
-.post-card {
-    background-color: #ffffff;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    padding: 20px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    transition: box-shadow 0.2s;
-}
-
-.post-card:hover {
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-}
-
-/* En-tête du post */
-.post-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-}
-
-.post-author {
-    font-weight: 500;
-    color: #1a1a1b;
-}
-
-.post-time {
-    color: #7c7c7c;
-    font-size: 12px;
-    margin-left: 10px;
-}
-
-/* Titre du post */
-.post-title {
-    font-size: 18px;
-    font-weight: 600;
-    color: #1a1a1b;
-    margin-bottom: 10px;
-}
-
-/* Contenu du post */
-.post-content {
-    color: #1a1a1b;
-    margin-bottom: 15px;
-}
-
-/* Actions du post (votes, commentaires) */
-.post-actions {
-    display: flex;
-    gap: 15px;
-    color: #7c7c7c;
-}
-
-.post-action {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 14px;
-}
-
 /* Carte pour créer un post */
 .create-post-card {
     background-color: #ffffff;

@@ -2,15 +2,25 @@
 
 <div class="post-card">
     <div class="post-header">
-        <a href="{% url 'social_app:subraddot_home' name=post.subraddot.name %}" class="subraddot-link">
-            {% if post.subraddot.icon %}
-                <img src="{{ post.subraddot.icon.url }}" alt="{{ post.subraddot.name }}" class="subraddot-icon">
-            {% endif %}
-            <span class="subraddot-name">{{ post.subraddot.name }}</span>
-        </a>
-        <span class="post-info">
-            Posté par {{ post.user.username }} • {{ post.created_at }}
-        </span>
+        {% if not on_subhomepage %}
+            <a href="{% url 'social_app:subraddot_home' name=post.subraddot.name %}" class="subraddot-link">
+                {% if post.subraddot.icon %}
+                    <img src="{{ post.subraddot.icon.url }}" alt="{{ post.subraddot.name }}" class="subraddot-icon">
+                {% endif %}
+                <span class="subraddot-name">{{ post.subraddot.name }}</span>
+            </a>
+            <span class="post-info">
+                Posté par {{ post.user.username }} • {{ post.created_at }}
+            </span>
+        {% else %}
+            <span class="post-info">
+                {% if post.user.profile and post.user.profile.picture %}
+                    <img src="{{ post.user.profile.picture.url }}" alt="{{ post.user.username }}" class="userpic">
+                {% endif %}
+                <span class="username">{{ post.user.username }}</span>
+                • {{ post.created_at }}
+            </span>
+        {% endif %}
     </div>
 
     <div class="post-body">
