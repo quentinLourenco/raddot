@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.views.decorators.http import require_POST
 
 from social_app.models.Subraddot import Subraddot
 from social_app.models.Post import Post
+from social_app.forms.create_comment import CreateCommentForm
 
 
 @login_required
@@ -44,3 +46,18 @@ def create_post(request, name):
         return redirect('social_app:subraddot_home', name=name)
 
     return redirect('social_app:subraddot_home', name=name)
+
+@require_POST
+def create_comment(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    form = CreateCommentForm(request.POST)
+    referer = request.META.get('HTTP_REFERER', '/')
+    if form.is_valid():
+        comment = form.save(commit=False)
+        comment.user = request.user
+        comment.post = post
+        comment.save()
+        messages.success(request, "Votre commentaire a été ajouté avec succès!")
+    else:
+        messages.error(request, "Le contenu du commentaire ne peut pas être vide.")
+    return redirect(referer)

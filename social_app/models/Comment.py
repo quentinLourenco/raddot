@@ -10,5 +10,7 @@ class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments')
     created_at = models.DateTimeField(default=timezone.now)
 
+    class Meta: ordering = ['-created_at']
+
     def __str__(self):
         return f"Comment by {self.user.username} on {self.post.title}"

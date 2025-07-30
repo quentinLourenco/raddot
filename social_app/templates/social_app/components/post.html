@@ -1,4 +1,7 @@
+{% load comment_tag %}
 {% load static %}
+
+<link rel="stylesheet" href="{% static 'comment.css' %}">
 
 <div class="post-card">
     <div class="post-header">
@@ -55,10 +58,31 @@
                 </button>
             </div>
 
-            <button class="comments-btn">
+            <button class="comments-btn" onclick="toggleComments('comments-{{ post.id }}')">
                 <span>💬</span>
                 <span class="comments-count">0</span> commentaires
             </button>
         </div>
     </div>
+    <div id="comments-{{ post.id }}" class="comments-section" style="display: none;">
+        {% render_create_comment post %}
+        {% for comment in post.comments.all %}
+            <div class="comment">
+            {% render_comment comment %}
+            </div>
+        {% empty %}
+            <div class="no-comments">No comments yet.</div>
+        {% endfor %}
+    </div>
 </div>
+
+<script>
+  function toggleComments(id) {
+    const section = document.getElementById(id);
+    if (section.style.display === "none") {
+      section.style.display = "block";
+    } else {
+      section.style.display = "none";
+    }
+  }
+</script>

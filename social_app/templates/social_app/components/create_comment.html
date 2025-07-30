@@ -1,0 +1,9 @@
+{% load static %}
+{% if post.id %}
+    <form method="post" action="{% url 'social_app:create_comment' post_id=post.id %}" class="create-comment-form">
+        {% csrf_token %}
+        {{ form.content }}
+        <button type="submit" class="raddot-button">Commenter</button>
+    </form>
+{% endif %}
+

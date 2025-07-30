@@ -1,8 +1,9 @@
+{% load post_tag %}
 {% load static %}
 
 <div class="post-list-container">
     {% for post in posts %}
-        {% include 'social_app/components/post.html' with post=post on_homepage=on_homepage %}
+        {% render_post post on_subhomepage %}
     {% empty %}
         <div class="empty-post-list">
             <p>Aucun post à afficher pour le moment.</p>

@@ -1,0 +1,19 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'comment.css' %}">
+
+<div class="comment">
+    <div class="comment-header">
+        {% if comment.user.profile and comment.user.profile.picture %}
+            <img src="{{ comment.user.profile.picture.url }}" alt="{{ comment.user.username }}" class="comment-userpic">
+        {% else %}
+            <img src="{% static 'assets/bulle.png' %}" alt="default" class="comment-userpic">
+        {% endif %}
+        <span class="comment-username">{{ comment.user.username }}</span>
+        <span class="comment-date">• {{ comment.created_at|date:'d M Y H:i' }}</span>
+    </div>
+    <div class="comment-content">
+        {{ comment.content|linebreaksbr }}
+    </div>
+</div>
+
