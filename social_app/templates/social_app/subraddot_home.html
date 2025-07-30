@@ -4,6 +4,7 @@
 {% block content %}
     <link rel="stylesheet" href="{% static 'subraddots.css' %}">
     <link rel="stylesheet" href="{% static 'subraddot_detail.css' %}">
+    <link rel="stylesheet" href="{% static 'create_post.css' %}">
     <div class="subraddot-page">
         {% if subraddot.banner %}
             <div class="subraddot-banner" style="background-image: url('{{ subraddot.banner.url }}')"></div>
@@ -53,13 +54,8 @@
         </div>
 
         <div class="posts-container">
-            {% if user.is_authenticated %}
-                <div class="create-post-card">
-                    <div class="create-post-message">
-                        Partagez votre contenu avec la communauté r/{{ subraddot.name }}
-                    </div>
-                    <a href="#" class="create-post-button">Créer un post</a>
-                </div>
+            {% if user.is_authenticated and is_member %}
+                {% include "social_app/components/create_post.html" with subraddot=subraddot %}
             {% endif %}
 
             {% if posts %}

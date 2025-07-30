@@ -1,0 +1,55 @@
+{% load static %}
+
+<div class="create-post-card">
+    <h3 class="create-post-title">Créer un post</h3>
+    <form method="post" action="{% url 'social_app:create_post' name=subraddot.name %}" enctype="multipart/form-data" class="create-post-form">
+        {% csrf_token %}
+        <div class="post-title-input">
+            <input type="text" name="title" placeholder="Titre de votre post" required>
+        </div>
+
+        <div class="post-type-switch">
+            <label class="switch-label">
+                <input type="radio" name="post_type" value="text" checked id="post-type-text">
+                <span>Texte</span>
+            </label>
+            <label class="switch-label">
+                <input type="radio" name="post_type" value="image" id="post-type-image">
+                <span>Image</span>
+            </label>
+        </div>
+
+        <div id="post-content-text" class="post-content-input">
+            <textarea name="content" placeholder="Contenu de votre post"></textarea>
+        </div>
+
+        <div id="post-content-image" class="post-content-input" style="display: none;">
+            <input type="file" name="img" accept="image/*">
+        </div>
+
+        <button type="submit" class="raddot-button">Raddoter</button>
+    </form>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const textRadio = document.getElementById('post-type-text');
+        const imageRadio = document.getElementById('post-type-image');
+        const textContent = document.getElementById('post-content-text');
+        const imageContent = document.getElementById('post-content-image');
+
+        textRadio.addEventListener('change', function() {
+            if (this.checked) {
+                textContent.style.display = 'block';
+                imageContent.style.display = 'none';
+            }
+        });
+
+        imageRadio.addEventListener('change', function() {
+            if (this.checked) {
+                textContent.style.display = 'none';
+                imageContent.style.display = 'block';
+            }
+        });
+    });
+</script>
