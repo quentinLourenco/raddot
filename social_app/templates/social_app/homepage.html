@@ -2,102 +2,31 @@
 {% load static %}
 
 {% block extra_css %}
-    <style>
-        .empty-state {
-            text-align: center;
-            padding: 40px 20px;
-        }
-
-        .empty-state h3 {
-            color: #ff4500;
-            margin-bottom: 15px;
-        }
-
-        .empty-state p {
-            color: #7c7c7c;
-            margin-bottom: 30px;
-            font-size: 16px;
-        }
-
-        .action-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-        }
-
-        .action-button {
-            display: inline-block;
-            padding: 10px 20px;
-            border-radius: 6px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.2s;
-        }
-
-        .primary-btn {
-            background: linear-gradient(to right, #ff4500, #ff5414);
-            color: white;
-            box-shadow: 0 4px 6px rgba(255, 69, 0, 0.2);
-        }
-
-        .primary-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 8px rgba(255, 69, 0, 0.25);
-            color: white;
-        }
-
-        .secondary-btn {
-            background-color: #edeff1;
-            color: #1a1a1b;
-        }
-
-        .secondary-btn:hover {
-            background-color: #d7d8da;
-            color: #1a1a1b;
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'base.css' %}">
+    <link rel="stylesheet" href="{% static 'post.css' %}">
+    <link rel="stylesheet" href="{% static 'post_list.css' %}">
 {% endblock %}
 
 {% block content %}
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-12">
-                {% if user.is_authenticated %}
-                    {% if has_communities %}
-                        <div class="card">
-                            <div class="card-header">
-                                <h2>Publications récentes</h2>
-                            </div>
-                            <div class="card-body">
-                                <p>Les publications s'afficheront ici une fois implémentées.</p>
-                                <!-- Ici viendra la liste des posts -->
-                            </div>
-                        </div>
-                    {% else %}
-                        <div class="card">
-                            <div class="card-body empty-state">
-                                <h3>C'est bien vide par ici...</h3>
-                                <p>Vous n'êtes abonné à aucun subraddot et vous n'en avez créé aucun.
-                                    Commencez par créer votre propre subraddot ou rejoindre des subraddots
-                                    existantes.</p>
-                                <div class="action-buttons">
-                                    <a href="{% url 'social_app:subraddot_create' %}" class="action-button primary-btn">Créer un subraddot</a>
-                                    <a href="{% url 'social_app:discover_subraddots' %}" class="action-button secondary-btn">Découvrir des subraddot</a>
-                                </div>
-                            </div>
-                        </div>
-                    {% endif %}
-                {% else %}
-                    <div class="card">
-                        <div class="card-header">
-                            <h2>Publications récentes</h2>
-                        </div>
-                        <div class="card-body">
-                            <p>Les publications s'afficheront ici une fois implémentées.</p>
-                        </div>
+    {% if user.is_authenticated %}
+        {% if has_joined_subraddot %}
+            <h2 class="page-title">Fil d'actualité</h2>
+            {% include 'social_app/components/post_list.html' with posts=posts %}
+        {% else %}
+            <div>
+                <div>
+                    <h3>C'est bien vide par ici...</h3>
+                    <p>Vous n'êtes abonné à aucun subraddot et vous n'en avez créé aucun.
+                        Commencez par créer votre propre subraddot ou rejoindre des subraddots
+                        existantes.</p>
+                    <div>
+                        <a href="{% url 'social_app:subraddot_create' %}">Créer
+                            un subraddot</a>
+                        <a href="{% url 'social_app:discover_subraddots' %}"
+                           >Découvrir des subraddot</a>
                     </div>
-                {% endif %}
+                </div>
             </div>
-        </div>
-    </div>
+        {% endif %}
+    {% endif %}
 {% endblock %}

@@ -3,27 +3,46 @@ from social_app.models.Subraddot import Subraddot
 
 
 def homepage(request):
-    has_subraddots = False
-    user_subscribed_subraddots = []
-    user_created_subraddots = []
-
-    # Vérifier si l'utilisateur est authentifié
+    joined_subraddots = []
+    posts = []
     if request.user.is_authenticated:
-        # Récupérer les communautés créées par l'utilisateur
-        user_created_subraddots = Subraddot.objects.filter(creator=request.user)
+        user = request.user
+        joined_subraddots = user.joined_subraddots.all().order_by('-created_at')
+        for subraddot in joined_subraddots:
+            last_post = subraddot.posts.all().order_by('-created_at')[:1]
+            if last_post:
+                posts.append(last_post[0])
 
-        # Note: comme le modèle d'abonnement n'est pas encore implémenté,
-        # nous ne pouvons pas récupérer les communautés auxquelles l'utilisateur est abonné.
-        # Cette partie sera à compléter ultérieurement
-        # user_subscribed_subraddots = ...
-
-        # Vérifier si l'utilisateur a des communautés
-        has_subraddots = user_created_subraddots.exists()  # ou user_subscribed_subraddots.exists()
-
+    has_joined_subraddot = bool(joined_subraddots)
     context = {
         'title': 'Bienvenue sur Raddot',
-        'has_csubraddots': has_subraddots,
-        'user_created_subraddots': user_created_subraddots,
-        'user_subscribed_subraddots': user_subscribed_subraddots,
+        'has_joined_subraddot': has_joined_subraddot,
+        'posts' : posts,
     }
+
     return render(request, 'social_app/homepage.html', context)
+
+
+# posts = [
+#     {
+#         'subraddot_name': blabla
+#         'post':
+#                 'title': 'Post Title 1',
+#                 'content': 'This is the content of post 1.',
+#                 'created_at': '2023-10-01 12:00:00',
+#                 'author': 'User1'
+#             }
+#     },
+#     {
+#         'subraddot_name': 'Subraddot 2',
+#         'post': [
+#             {
+#                 'title': 'Post Title 2',
+#                 'content': 'This is the content of post 2.',
+#                 'created_at': '2023-10-02 14:30:00',
+#                 'author': 'User2'
+#             }
+#         ]
+#     }
+# ]
+

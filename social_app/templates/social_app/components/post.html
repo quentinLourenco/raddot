@@ -1,0 +1,54 @@
+{% load static %}
+
+<div class="post-card">
+    <div class="post-header">
+        <a href="{% url 'social_app:subraddot_home' name=post.subraddot.name %}" class="subraddot-link">
+            {% if post.subraddot.icon %}
+                <img src="{{ post.subraddot.icon.url }}" alt="{{ post.subraddot.name }}" class="subraddot-icon">
+            {% endif %}
+            <span class="subraddot-name">{{ post.subraddot.name }}</span>
+        </a>
+        <span class="post-info">
+            Posté par {{ post.user.username }} • {{ post.created_at }}
+        </span>
+    </div>
+
+    <div class="post-body">
+        <h3 class="post-title">{{ post.title }}</h3>
+        {% if post.post_type == 'text' %}
+            <div class="post-content">
+                {{ post.content|linebreaksbr }}
+            </div>
+        {% elif post.post_type == 'image' %}
+            <div class="post-image">
+                {% if post.img %}
+                    <img src="{{ post.img.url }}" alt="{{ post.title }}">
+                {% endif %}
+                {% if post.content %}
+                    <div class="post-content">
+                        {{ post.content|linebreaksbr }}
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="post-footer">
+        <div class="post-actions">
+            <div class="vote-container">
+                <button class="vote-btn upvote">
+                    <img src="{% static 'assets/vers-le-haut.png' %}" alt="Upvote">
+                </button>
+                <span class="vote-count">0</span>
+                <button class="vote-btn downvote">
+                    <img src="{% static 'assets/vers-le-bas.png' %}" alt="Downvote">
+                </button>
+            </div>
+
+            <button class="comments-btn">
+                <span>💬</span>
+                <span class="comments-count">0</span> commentaires
+            </button>
+        </div>
+    </div>
+</div>
