@@ -16,6 +16,7 @@ def subraddot_create(request):
             subraddot = form.save(commit=False)
             subraddot.creator = request.user
             subraddot.save()
+            subraddot.members.add(request.user)
 
             notify(request, "success", f"Le subraddot '{subraddot.name}' a été créé avec succès!")
             # return redirect('social_app:subraddot_detail', name=subraddot.name)
