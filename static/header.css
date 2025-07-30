@@ -140,7 +140,7 @@
     color: #ff4500;
 }
 
-.btn-secondary {
+.btn-inscr {
     background-color: #ff4500;
     color: white;
     padding: 8px 16px;
@@ -150,7 +150,7 @@
     transition: all 0.2s;
 }
 
-.btn-secondary:hover {
+.btn-inscr:hover {
     background-color: #ff6a33;
     transform: translateY(-1px);
 }
