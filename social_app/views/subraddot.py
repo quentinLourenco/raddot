@@ -65,20 +65,6 @@ def subraddot_home(request, name):
 
 
 @login_required
-def user_subraddots(request):
-    created_subraddots = Subraddot.objects.filter(creator=request.user)
-    joined_subraddots = request.user.joined_subraddots.all()
-
-    context = {
-        'created_subraddots': created_subraddots,
-        'joined_subraddots': joined_subraddots,
-        'title': 'Mes Subraddots'
-    }
-
-    return render(request, 'social_app/user_subraddots.html', context)
-
-
-@login_required
 def join_subraddot(request, name):
     if request.method == 'POST':
         subraddot = get_object_or_404(Subraddot, name=name)
