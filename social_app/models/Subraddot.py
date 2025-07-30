@@ -16,3 +16,7 @@ class Subraddot(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        from django.urls import reverse
+        return reverse('social_app:subraddot_home', kwargs={'name': self.name})

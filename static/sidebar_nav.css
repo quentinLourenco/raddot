@@ -1,0 +1,113 @@
+.sidebar-nav {
+    position: fixed;
+    top: 70px; /* adjust if you have a header */
+    left: 0;
+    width: 260px;
+    min-height: 100vh;
+    background: #fafafa;
+    border-right: 1px solid #eee;
+    box-shadow: 2px 0 8px rgba(0,0,0,0.04);
+    padding: 24px 18px 18px 18px;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.sidebar-section {
+    margin-bottom: 18px;
+}
+
+.sidebar-section h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #FF4500;
+    margin-bottom: 10px;
+}
+
+.sidebar-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 10px 0;
+}
+
+.sidebar-list li {
+    margin-bottom: 7px;
+}
+
+.sidebar-list a {
+    color: #333;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.sidebar-list a:hover {
+    color: #FF4500;
+}
+
+.sidebar-btn {
+    display: inline-block;
+    background: #FF4500;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 7px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    margin-top: 4px;
+    transition: background 0.2s;
+}
+
+.sidebar-btn:hover {
+    background: #e03d00;
+}
+
+.sidebar-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 0;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.sidebar-item:hover {
+    background: #f0f0f0;
+}
+
+.sidebar-item-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #eee;
+    margin-right: 4px;
+}
+
+.sidebar-item-link {
+    color: #333;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    flex: 1;
+    transition: color 0.2s;
+}
+
+.sidebar-item-link:hover {
+    color: #FF4500;
+}
+
+@media (max-width: 900px) {
+    .sidebar-nav {
+        position: static;
+        width: 100%;
+        min-height: unset;
+        box-shadow: none;
+        border-right: none;
+        padding: 12px 8px;
+    }
+}

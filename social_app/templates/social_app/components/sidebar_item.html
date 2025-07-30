@@ -1,0 +1,12 @@
+{% load static %}
+
+{% block extracss %}
+    <link rel="stylesheet" href="{% static 'sidebar_nav.css' %}">
+{% endblock extracss %}
+
+<li class="sidebar-item">
+    {% if icon %}
+        <img src="{{ icon.url }}" alt="icon {{ name }}" class="sidebar-item-icon">
+    {% endif %}
+    <a href="{{ url }}" class="sidebar-item-link">r/{{ name }}</a>
+</li>

@@ -1,0 +1,31 @@
+{% load sidebar_tags %}
+{% load static %}
+
+{% block extracss %}
+    <link rel="stylesheet" href="{% static 'sidebar_nav.css' %}">
+{% endblock extracss %}
+
+<div class="sidebar-nav">
+    <div class="sidebar-section">
+        <h3>Mes subraddots</h3>
+        <ul class="sidebar-list">
+            {% for sub in created_subraddots %}
+                {% render_sidebar_item sub %}
+            {% empty %}
+                <li><em>Aucun subraddots créé</em></li>
+            {% endfor %}
+        </ul>
+        <a href="{% url 'social_app:subraddot_create' %}" class="sidebar-btn">Créer un nouveau subraddot</a>
+    </div>
+    <div class="sidebar-section">
+        <h3>Mes abonnements</h3>
+        <ul class="sidebar-list">
+            {% for sub in joined_subraddots %}
+                {% render_sidebar_item sub %}
+            {% empty %}
+                <li><em>Pas encore d'abonnement</em></li>
+            {% endfor %}
+        </ul>
+        <a href="{% url 'social_app:discover_subraddots' %}" class="sidebar-btn">Découvrir d'autre subraddots</a>
+    </div>
+</div>
