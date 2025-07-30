@@ -1,0 +1,31 @@
+/* Error Messages */
+.errorlist,
+.error-message {
+    list-style: none;
+    padding: 8px 12px;
+    margin: 8px 0;
+    color: #ffffff;
+    font-size: 13px;
+    background-color: #ea0027;
+    border-radius: 4px;
+    font-weight: 500;
+    box-shadow: 0 2px 4px rgba(234, 0, 39, 0.2);
+}
+
+/* Success Messages */
+.success-message {
+    color: #ffffff;
+    font-size: 14px;
+    padding: 12px;
+    margin-bottom: 16px;
+    background-color: #46d160;
+    border-radius: 6px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(70, 209, 96, 0.2);
+    font-weight: 500;
+}
+
+div {
+    display: block;
+    unicode-bidi: isolate;
+}

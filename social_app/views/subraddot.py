@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib import messages
 from django.http import Http404
 from django.contrib.auth.decorators import login_required
+from social_app.toaster import notify
 
 from social_app.forms.create_subraddot import CreateSubraddotForm
 from social_app.models.Subraddot import Subraddot
@@ -17,7 +17,7 @@ def subraddot_create(request):
             subraddot.creator = request.user
             subraddot.save()
 
-            messages.success(request, f"Le subraddot '{subraddot.name}' a été créé avec succès!")
+            notify(request, "success", f"Le subraddot '{subraddot.name}' a été créé avec succès!")
             # return redirect('social_app:subraddot_detail', name=subraddot.name)
     else:
         form = CreateSubraddotForm()
@@ -39,7 +39,7 @@ def subraddot_update(request, name):
         form = UpdateSubraddotForm(request.POST, request.FILES, instance=subraddot)
         if form.is_valid():
             form.save()
-            messages.success(request, f"La communauté r/{subraddot.name} a été mise à jour avec succès!")
+            notify(request, "success", f"La communauté r/{subraddot.name} a été mise à jour avec succès!")
             return redirect('social_app:my_subraddots')
     else:
         form = UpdateSubraddotForm(instance=subraddot)
@@ -84,10 +84,10 @@ def join_subraddot(request, name):
 
         # Vérifier si l'utilisateur est déjà membre
         if request.user in subraddot.members.all():
-            messages.info(request, f"Vous êtes déjà membre de r/{subraddot.name}")
+            notify(request, "info", f"Vous êtes déjà membre de r/{subraddot.name}")
         else:
             subraddot.members.add(request.user)
-            messages.success(request, f"Vous avez rejoint r/{subraddot.name} avec succès!")
+            notify(request, "success", f"Vous avez rejoint r/{subraddot.name} avec succès!")
 
         # Redirection vers la page d'où vient la requête ou vers la page du subraddot
         next_url = request.POST.get('next', f'/home/r/{name}/')
@@ -103,12 +103,12 @@ def leave_subraddot(request, name):
 
         # Vérifier si l'utilisateur est le créateur (ne peut pas quitter son propre subraddot)
         if subraddot.creator == request.user:
-            messages.error(request, "Vous ne pouvez pas quitter un subraddot que vous avez créé!")
+            notify(request, "error", "Vous ne pouvez pas quitter un subraddot que vous avez créé!")
         elif request.user in subraddot.members.all():
             subraddot.members.remove(request.user)
-            messages.success(request, f"Vous avez quitté r/{subraddot.name}")
+            notify(request, "success", f"Vous avez quitté r/{subraddot.name}")
         else:
-            messages.info(request, f"Vous n'êtes pas membre de r/{subraddot.name}")
+            notify(request, "info", f"Vous n'êtes pas membre de r/{subraddot.name}")
 
         # Redirection vers la page d'où vient la requête ou vers la page du subraddot
         next_url = request.POST.get('next', f'/home/r/{name}/')
