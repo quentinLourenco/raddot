@@ -59,7 +59,7 @@
             {% if user.is_authenticated and is_member %}
                 {% include "social_app/components/create_post.html" with subraddot=subraddot %}
             {% endif %}
-            {% render_post post True %}
+            {% include 'social_app/components/post_list.html' with posts=posts on_subhomepage=True %}
         </div>
     </div>
 {% endblock %}
