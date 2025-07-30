@@ -7,10 +7,19 @@
     <title>Raddot - {% block title %}Partagez et discutez{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'base.css' %}">
     <link rel="stylesheet" href="{% static 'header.css' %}">
+    <link rel="stylesheet" href="{% static 'toaster.css' %}">
     {% block extra_css %}{% endblock %}
 </head>
 <body>
     {% include "header.html" %}
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="{% if message.tags == 'error' %}error-message{% else %}success-message{% endif %}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
 
     <main class="content-container">
         {% block content %}{% endblock %}

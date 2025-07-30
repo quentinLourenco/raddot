@@ -65,14 +65,6 @@
         <p>Créez un espace pour partager et discuter avec d'autres passionnés</p>
     </div>
 
-    {% if messages %}
-        {% for message in messages %}
-            <div class="{% if message.tags == 'error' %}error-message{% else %}success-message{% endif %}">
-                {{ message }}
-            </div>
-        {% endfor %}
-    {% endif %}
-
     <form method="post" enctype="multipart/form-data" class="create-subraddot-form">
         <h2>Détails du subraddot</h2>
         {% csrf_token %}
