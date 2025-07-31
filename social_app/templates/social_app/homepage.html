@@ -6,29 +6,59 @@
     <link rel="stylesheet" href="{% static 'base.css' %}">
     <link rel="stylesheet" href="{% static 'post.css' %}">
     <link rel="stylesheet" href="{% static 'post_list.css' %}">
+    <style>
+        .main-content {
+            margin-left: 260px; /* Ajustez selon la largeur de votre sidebar */
+            padding: 24px 32px;
+        }
+        @media (max-width: 900px) {
+            .main-content {
+                margin-left: 0;
+                padding: 16px 8px;
+            }
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 8px 8px 0 0;
+            background-color: #ff4500;
+            color: #fff !important;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.2s;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #e03d00;
+        }
+    </style>
 {% endblock %}
 
 {% block content %}
-    {% if user.is_authenticated %}
-        {% render_sidebar_nav %}
-        {% if has_joined_subraddot %}
-            <h2 class="page-title">Fil d'actualité</h2>
-            {% include 'social_app/components/post_list.html' with posts=posts %}
-        {% else %}
-            <div>
+    <div class="main-content">
+        {% if user.is_authenticated %}
+            {% render_sidebar_nav %}
+            {% if has_joined_subraddot %}
+                <h2 class="page-title">Fil d'actualité</h2>
+                {% include 'social_app/components/post_list.html' with posts=posts %}
+            {% else %}
                 <div>
-                    <h3>C'est bien vide par ici...</h3>
-                    <p>Vous n'êtes abonné à aucun subraddot et vous n'en avez créé aucun.
-                        Commencez par créer votre propre subraddot ou rejoindre des subraddots
-                        existantes.</p>
                     <div>
-                        <a href="{% url 'social_app:subraddot_create' %}">Créer
-                            un subraddot</a>
-                        <a href="{% url 'social_app:discover_subraddots' %}"
-                           >Découvrir des subraddot</a>
+                        <h3>C'est bien vide par ici...</h3>
+                        <p>Vous n'êtes abonné à aucun subraddot et vous n'en avez créé aucun.
+                            Commencez par créer votre propre subraddot ou rejoindre des subraddots
+                            existantes.</p>
+                        <div>
+                            <a href="{% url 'social_app:subraddot_create' %}" class="btn">Créer
+                                un subraddot</a>
+                            <a href="{% url 'social_app:discover_subraddots' %}" class="btn"
+                               >Découvrir des subraddot</a>
+                        </div>
                     </div>
                 </div>
-            </div>
+            {% endif %}
         {% endif %}
-    {% endif %}
+    </div>
 {% endblock %}
