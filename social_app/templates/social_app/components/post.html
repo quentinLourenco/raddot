@@ -1,3 +1,4 @@
+{% load vote_tags %}
 {% load comment_tag %}
 {% load static %}
 
@@ -49,18 +50,30 @@
     <div class="post-footer">
         <div class="post-actions">
             <div class="vote-container">
-                <button class="vote-btn upvote">
-                    <img src="{% static 'assets/vers-le-haut.png' %}" alt="Upvote">
-                </button>
-                <span class="vote-count">0</span>
-                <button class="vote-btn downvote">
-                    <img src="{% static 'assets/vers-le-bas.png' %}" alt="Downvote">
-                </button>
+                <form method="post" action="{% url 'social_app:vote_post' %}" class="vote-form">
+                    {% csrf_token %}
+                    <input type="hidden" name="post_id" value="{{ post.id }}">
+                    <input type="hidden" name="value" value="{% if user_vote == 1 %}0{% else %}1{% endif %}">
+                    <input type="hidden" name="next" value="{{ request.get_full_path }}">
+                    <button type="submit" class="vote-btn upvote {% if user_vote == 1 %}active{% endif %}">
+                        <img src="{% static 'assets/vers-le-haut.png' %}" alt="Upvote">
+                    </button>
+                </form>
+                <span class="vote-count">{{ total_votes }}</span>
+                <form method="post" action="{% url 'social_app:vote_post' %}" class="vote-form">
+                    {% csrf_token %}
+                    <input type="hidden" name="post_id" value="{{ post.id }}">
+                    <input type="hidden" name="value" value="{% if user_vote == -1 %}0{% else %}-1{% endif %}">
+                    <input type="hidden" name="next" value="{{ request.get_full_path }}">
+                    <button type="submit" class="vote-btn downvote {% if user_vote == -1 %}active{% endif %}">
+                        <img src="{% static 'assets/vers-le-bas.png' %}" alt="Downvote">
+                    </button>
+                </form>
             </div>
 
             <button class="comments-btn" onclick="toggleComments('comments-{{ post.id }}')">
                 <span>💬</span>
-                <span class="comments-count">0</span> commentaires
+                <span class="comments-count">{{ comments_count }}</span> commentaires
             </button>
         </div>
     </div>
@@ -68,7 +81,7 @@
         {% render_create_comment post %}
         {% for comment in post.comments.all %}
             <div class="comment">
-            {% render_comment comment %}
+                {% render_comment comment %}
             </div>
         {% empty %}
             <div class="no-comments">No comments yet.</div>

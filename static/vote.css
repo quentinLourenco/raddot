@@ -1,0 +1,65 @@
+/* Styles pour le composant de vote */
+.vote-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    padding: 10px;
+}
+
+.vote-form {
+    margin: 0;
+    padding: 0;
+}
+
+.vote-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.vote-btn:hover:not(.disabled) {
+    background-color: #f0f0f0;
+}
+
+.vote-btn.active {
+    background-color: #ff6b35; /* Orange pour les votes actifs */
+}
+
+.vote-btn.active:hover {
+    background-color: #e55a2b; /* Orange plus foncé au hover */
+}
+
+.vote-btn.disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.vote-btn img {
+    width: 16px;
+    height: 16px;
+    pointer-events: none; /* Empêche les événements sur l'image */
+}
+
+.vote-count {
+    font-weight: bold;
+    font-size: 14px;
+    color: #333;
+    min-width: 20px;
+    text-align: center;
+}
+
+/* Styles spécifiques pour les états */
+.vote-btn.upvote.active img {
+    filter: brightness(0) invert(1); /* Rend l'icône blanche quand active */
+}
+
+.vote-btn.downvote.active img {
+    filter: brightness(0) invert(1); /* Rend l'icône blanche quand active */
+}

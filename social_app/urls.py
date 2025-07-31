@@ -2,9 +2,10 @@ from django.urls import path
 
 from social_app.views.homepage import homepage
 from social_app.views.subraddot import subraddot_create, subraddot_update, subraddot_home, \
-     join_subraddot, leave_subraddot
+    join_subraddot, leave_subraddot
 from social_app.views.discover import discover_subraddots
 from social_app.views.post import create_post, create_comment
+from social_app.views.vote_post import vote_post
 
 urlpatterns = [
     path('', homepage, name='homepage'),
@@ -16,4 +17,5 @@ urlpatterns = [
     path('r/<str:name>/leave/', leave_subraddot, name='leave_subraddot'),
     path('r/<str:name>/post/create/', create_post, name='create_post'),
     path('post/<int:post_id>/comment/', create_comment, name='create_comment'),
+    path('vote/', vote_post, name='vote_post'),
 ]
