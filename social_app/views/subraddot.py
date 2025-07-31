@@ -7,9 +7,8 @@ from social_app.forms.create_subraddot import CreateSubraddotForm
 from social_app.models.Subraddot import Subraddot
 from social_app.forms.update_subraddot import UpdateSubraddotForm
 from social_app.models.Post import Post
-from social_app.models.Trophy import Trophy  # Ajout de l'import Trophy
-from django.conf import settings
-import os
+
+from social_app.utils.trophies import check_first_subraddot
 
 
 def subraddot_create(request):
@@ -20,18 +19,7 @@ def subraddot_create(request):
             subraddot.creator = request.user
             subraddot.save()
             subraddot.members.add(request.user)
-
-            # Vérification du nombre de subraddots créés
-            created_count = request.user.created_subraddots.count()
-            if created_count == 10:
-                # Ajout du trophée si non déjà attribué
-                if not Trophy.objects.filter(user=request.user, name="10 subraddot").exists():
-                    Trophy.objects.create(
-                        user=request.user,
-                        subraddot=subraddot,
-                        name="10 subraddot",
-                        icon='trophy/trophee.png'
-                    )
+            check_first_subraddot(request.user)
     else:
         form = CreateSubraddotForm()
 
