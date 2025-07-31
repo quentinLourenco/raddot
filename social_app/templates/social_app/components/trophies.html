@@ -5,21 +5,27 @@
 <link rel="stylesheet" href="{% static 'trophies.css' %}">
 
 <div class="trophy-list-container">
-    <ul class="trophy-list-title">
-        {% if subraddot %}
-            {% render_sidebar_item subraddot=subraddot %}
-        {% else %}
-            Raddot
+    {% for group in trophy_groups %}
+        {% if show_subraddot_titles and group.subraddot %}
+            {% render_sidebar_item subraddot=group.subraddot %}
+        {% elif show_subraddot_titles and not group.subraddot %}
+            <div class="trophy-section-title">Raddot</div>
         {% endif %}
-    </ul>
-    <div class="trophy-list">
-        {% for trophy in trophies %}
-            <div class="trophy-list-item">
-                {% render_trophy trophy %}
-            </div>
-        {% empty %}
-            <div class="trophy-list-empty">Aucun trophée</div>
-        {% endfor %}
-    </div>
-</div>
 
+        <div class="trophy-list">
+            {% for trophy in group.trophies %}
+                <div class="trophy-list-item">
+                    {% render_trophy trophy %}
+                </div>
+            {% empty %}
+                {% if show_subraddot_titles %}
+                    <div class="trophy-list-empty">
+                        Aucun trophée pour {% if group.subraddot %}{{ group.subraddot.name }}{% else %}Raddot{% endif %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% empty %}
+        <div class="trophy-list-empty">Aucun trophée</div>
+    {% endfor %}
+</div>

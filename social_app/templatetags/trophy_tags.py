@@ -9,8 +9,9 @@ def render_trophy(context, trophy):
     ctx = trophy_component.get_context()
     return ctx
 
+
 @register.inclusion_tag('social_app/components/trophies.html', takes_context=True)
-def render_trophies(context, trophies, subraddot=None):
-    trophies_component = TrophiesComponent(trophies, subraddot)
+def render_trophies(context, trophies, subraddot=None, show_subraddot_titles=True):
+    trophies_component = TrophiesComponent(trophies, subraddot, show_subraddot_titles)
     ctx = trophies_component.get_context()
     return ctx

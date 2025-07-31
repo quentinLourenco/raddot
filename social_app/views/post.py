@@ -7,7 +7,8 @@ from social_app.models.Subraddot import Subraddot
 from social_app.models.Post import Post
 from social_app.models.Trophy import Trophy  # Ajout de l'import
 from social_app.forms.create_comment import CreateCommentForm
-from social_app.utils.trophies import check_trophies, check_first_post, check_five_post
+from social_app.utils.trophies import check_trophies, check_first_post, check_five_post, check_subraddot_first_post, \
+    check_subraddot_five_post
 
 
 @login_required
@@ -46,6 +47,8 @@ def create_post(request, name):
         post.save()
         check_first_post(request.user)
         check_five_post(request.user)
+        check_subraddot_first_post(request.user, subraddot)
+        check_subraddot_five_post(request.user, subraddot)
     return redirect('social_app:subraddot_home', name=name)
 
 @require_POST

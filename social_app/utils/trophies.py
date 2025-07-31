@@ -19,7 +19,7 @@ def check_trophies(user, trophy_name=None, subraddot=None):
 
 
 def check_first_post(user):
-    if not Trophy.objects.filter(user=user, name='First post').exists():
+    if not Trophy.objects.filter(user=user, name='1er poste').exists():
         posts_count = user.posts.count()
         print(f"{posts_count} posts found")
         if posts_count >= 1:
@@ -33,7 +33,7 @@ def check_first_post(user):
 
 
 def check_five_post(user):
-    if not Trophy.objects.filter(user=user, name='Five post').exists():
+    if not Trophy.objects.filter(user=user, name='5e poste').exists():
         posts_count = user.posts.count()
         if posts_count >= 5:
             Trophy.objects.create(
@@ -42,4 +42,28 @@ def check_five_post(user):
                 name='5e poste',
                 icon='trophy/five_post.png',
                 description='Vous avez posté 5 messages !',
+            )
+
+def check_subraddot_first_post(user, subraddot):
+    if not Trophy.objects.filter(user=user, subraddot=subraddot, name='1ere contrib').exists():
+        posts_count = user.posts.filter(subraddot=subraddot).count()
+        if posts_count >= 1:
+            Trophy.objects.create(
+                user=user,
+                subraddot=subraddot,
+                name='1ere contrib',
+                icon='trophy/sub_first_post.png',
+                description='Vous avez posté votre premier message dans ce subraddot !',
+            )
+
+def check_subraddot_five_post(user, subraddot):
+    if not Trophy.objects.filter(user=user, subraddot=subraddot, name='sub:five post').exists():
+        posts_count = user.posts.filter(subraddot=subraddot).count()
+        if posts_count >= 5:
+            Trophy.objects.create(
+                user=user,
+                subraddot=subraddot,
+                name='5e contrib',
+                icon='trophy/sub_five_post.png',
+                description='Vous avez posté votre 5e message dans ce subraddot !',
             )
