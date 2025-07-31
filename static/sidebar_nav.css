@@ -1,6 +1,6 @@
 .sidebar-nav {
     position: fixed;
-    top: 70px; /* adjust if you have a header */
+    top: 100px; /* adjust if you have a header */
     left: 0;
     width: 260px;
     min-height: 100vh;
