@@ -2,6 +2,7 @@ from .Subraddot import Subraddot
 from .Post import Post, get_post_image_path
 from .Comment import Comment
 from .Vote import VotePost
+from .Trophy import Trophy
 
 __all__ = [
     'Subraddot',
@@ -9,4 +10,5 @@ __all__ = [
     'Comment',
     'VotePost',
     'get_post_image_path',
+    'Trophy',
 ]

@@ -1,0 +1,18 @@
+{% load static %}
+
+{% block extracss %}
+    <link rel="stylesheet" href="{% static 'trophy.css' %}">
+{% endblock extracss %}
+
+<div class="trophy-icon-wrapper" tabindex="0">
+    {% if icon %}
+        <img src="{{ icon.url }}" alt="{{ name }}" class="trophy-icon"/>
+    {% else %}
+        <div class="trophy-icon trophy-icon--placeholder"></div>
+    {% endif %}
+    <div class="trophy-description">
+        {{ description }}
+    </div>
+</div>
+<div class="trophy-name">{{ name }}</div>
+

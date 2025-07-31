@@ -1,0 +1,25 @@
+{% load trophy_tags %}
+{% load sidebar_tags %}
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'trophies.css' %}">
+
+<div class="trophy-list-container">
+    <ul class="trophy-list-title">
+        {% if subraddot %}
+            {% render_sidebar_item subraddot=subraddot %}
+        {% else %}
+            Raddot
+        {% endif %}
+    </ul>
+    <div class="trophy-list">
+        {% for trophy in trophies %}
+            <div class="trophy-list-item">
+                {% render_trophy trophy %}
+            </div>
+        {% empty %}
+            <div class="trophy-list-empty">Aucun trophée</div>
+        {% endfor %}
+    </div>
+</div>
+

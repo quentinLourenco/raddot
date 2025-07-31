@@ -1,0 +1,67 @@
+/* Trophy component styles */
+
+
+.trophy-icon-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--background-secondary, #f5f5f5);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  cursor: pointer;
+  transition: box-shadow 0.2s;
+}
+
+.trophy-icon-wrapper:focus, .trophy-icon-wrapper:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+}
+
+.trophy-icon {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  border-radius: 50%;
+}
+
+.trophy-icon--placeholder {
+  width: 48px;
+  height: 48px;
+  background: #ddd;
+  border-radius: 50%;
+}
+
+.trophy-description {
+  display: none;
+  position: absolute;
+  left: 50%;
+  top: 110%;
+  transform: translateX(-50%);
+  min-width: 180px;
+  background: #222;
+  color: #fff;
+  border-radius: 8px;
+  font-size: 0.95em;
+  z-index: 10;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+  white-space: pre-line;
+  padding-bottom: 16px;
+}
+
+.trophy-icon-wrapper:hover .trophy-description,
+.trophy-icon-wrapper:focus .trophy-description {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.trophy-name {
+  margin-top: 0.5em;
+  font-size: 1em;
+  font-weight: 500;
+  color: var(--text-primary, #222);
+  text-align: center;
+}

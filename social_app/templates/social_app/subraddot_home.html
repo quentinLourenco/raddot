@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load trophy_tags %}
 {% load post_tag %}
 {% load static %}
 
@@ -54,6 +55,8 @@
                 {% endif %}
             </div>
         </div>
+
+    {% render_trophies request.user.trophies.all  %}
 
         <div class="posts-container">
             {% if user.is_authenticated and is_member %}

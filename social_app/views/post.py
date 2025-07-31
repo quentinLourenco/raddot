@@ -7,6 +7,7 @@ from social_app.models.Subraddot import Subraddot
 from social_app.models.Post import Post
 from social_app.models.Trophy import Trophy  # Ajout de l'import
 from social_app.forms.create_comment import CreateCommentForm
+from social_app.utils.trophies import check_trophies, check_first_post, check_five_post
 
 
 @login_required
@@ -43,23 +44,8 @@ def create_post(request, name):
                 return redirect('social_app:subraddot_home', name=name)
 
         post.save()
-
-        # Ajout du trophée si l'utilisateur a exactement 5 posts sur ce subraddot
-        user_post_count = Post.objects.filter(user=request.user, subraddot=subraddot).count()
-        trophy_name = f"5 posts sur {subraddot.name}"
-        if user_post_count == 5:
-            trophy_exists = Trophy.objects.filter(user=request.user, subraddot=subraddot, name=trophy_name).exists()
-            if not trophy_exists:
-                Trophy.objects.create(
-                    user=request.user,
-                    subraddot=subraddot,
-                    name=trophy_name,
-                    icon='trophy/enveloppe.png'
-                )
-
-        messages.success(request, "Votre post a été publié avec succès!")
-        return redirect('social_app:subraddot_home', name=name)
-
+        check_first_post(request.user)
+        check_five_post(request.user)
     return redirect('social_app:subraddot_home', name=name)
 
 @require_POST

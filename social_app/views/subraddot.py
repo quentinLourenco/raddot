@@ -32,9 +32,6 @@ def subraddot_create(request):
                         name="10 subraddot",
                         icon='trophy/trophee.png'
                     )
-
-            notify(request, "success", f"Le subraddot '{subraddot.name}' a été créé avec succès!")
-            # return redirect('social_app:subraddot_detail', name=subraddot.name)
     else:
         form = CreateSubraddotForm()
 
