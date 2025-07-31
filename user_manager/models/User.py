@@ -44,3 +44,9 @@ class User(AbstractBaseUser):
 
     def __str__(self):
         return self.username
+    
+    def subraddots_created_count(self):
+        return self.created_subraddots.count()
+    
+    def posts_created_count(self):
+        return self.posts.count()
